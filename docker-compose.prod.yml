@@ -1,0 +1,10 @@
+version: "3"
+services:
+  nginx:
+    image: "ram2510/vignesh-blog-nginx"
+    ports:
+      - "3050:80"
+  client:
+    image: "ram2510/vignesh-blog-client"
+  api:
+    image: "ram2510/vignesh-blog-server"

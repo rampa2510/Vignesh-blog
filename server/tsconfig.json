@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "strict": true,
+    "typeRoots": ["./src/custom_typings", "./node_modules/@types"],
+    "esModuleInterop": true,
+    "outDir": "./build",
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  }
+}
