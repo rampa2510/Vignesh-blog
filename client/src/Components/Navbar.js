@@ -20,6 +20,7 @@ import {
   SunIcon,
   MoonIcon,
 } from "@chakra-ui/icons";
+import { Link as ReachLink } from "react-router-dom";
 
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
@@ -84,9 +85,9 @@ export default function WithSubnavigation() {
 }
 
 const Links = [
-  { label: "Blogs", href: "#" },
-  { label: "About Me", href: "#" },
-  { label: "Contact Me", href: "#" },
+  { label: "Blogs", href: "/" },
+  { label: "About Me", href: "/about" },
+  { label: "Contact Me", href: "/contact" },
 ];
 
 const NavLink = ({ label, href }) => (
@@ -98,7 +99,8 @@ const NavLink = ({ label, href }) => (
       textDecoration: "none",
       bg: useColorModeValue("pink.200", "pink.700"),
     }}
-    href={href}
+    as={ReachLink}
+    to={href}
   >
     {label}
   </Link>
@@ -171,7 +173,7 @@ const MobileNavItem = ({ label, children, href }) => {
         >
           {children &&
             children.map((child) => (
-              <Link key={child.label} py={2} href={child.href}>
+              <Link key={child.label} py={2} as={ReachLink} href={child.href}>
                 {child.label}
               </Link>
             ))}
