@@ -1,5 +1,5 @@
 import { Container } from "@chakra-ui/react";
-import ContactForm from "../Components/Contact";
+import ContactView from "../Views/Contact";
 import ContactHero from "../Components/Hero";
 
 const text =
@@ -9,7 +9,7 @@ export default function ContactContainer() {
   return (
     <Container maxW="5xl" p="12">
       <ContactHero title="Contact Me" text={text} />
-      <ContactForm />
+      <ContactView />
     </Container>
   );
 }

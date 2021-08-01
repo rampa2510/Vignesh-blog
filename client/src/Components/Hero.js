@@ -1,4 +1,4 @@
-import { Box, Button, Text } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import HeaderWUnderline from "./HeaderWUnderline";
 
 export default function Hero({ title, text }) {
