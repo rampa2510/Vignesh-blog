@@ -21,3 +21,11 @@ services:
     volumes:
       - /app/node_modules
       - ./server:/app
+  editor:
+    tty: true
+    build: 
+      context: ./editor
+      dockerfile: dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - ./editor:/app
