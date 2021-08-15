@@ -2,7 +2,12 @@ import { Heading, Text, useBreakpointValue } from "@chakra-ui/react";
 
 export default function HeaderWUnderline({ header }) {
   return (
-    <Heading fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}>
+    <Heading
+      mt={"20px"}
+      mb={"20px"}
+      textTransform="uppercase"
+      fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}
+    >
       <Text
         as={"span"}
         position={"relative"}

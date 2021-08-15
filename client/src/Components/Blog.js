@@ -1,4 +1,5 @@
 import { Box, Text, Image, Link, Heading } from "@chakra-ui/react";
+import { Link as ReachLink } from "react-router-dom";
 
 export default function BlogList() {
   return (
@@ -21,7 +22,11 @@ export default function BlogList() {
           marginLeft={{ base: "0", sm: "5%" }}
           marginTop="5%"
         >
-          <Link textDecoration="none" _hover={{ textDecoration: "none" }}>
+          <Link 
+            textDecoration="none" _hover={{ textDecoration: "none" }}
+            as={ReachLink}
+            to="/blog/1"
+          >
             <Image
               borderRadius="lg"
               src={
@@ -29,6 +34,7 @@ export default function BlogList() {
               }
               alt="some good alt text"
               objectFit="contain"
+
             />
           </Link>
         </Box>
@@ -41,7 +47,12 @@ export default function BlogList() {
         marginTop={{ base: "3", sm: "0" }}
       >
         <Heading marginTop="1">
-          <Link textDecoration="none" _hover={{ textDecoration: "none" }}>
+          <Link            
+            as={ReachLink}
+            to="/blog/1"
+            textDecoration="none" 
+            _hover={{ textDecoration: "none" }}
+          >
             Blog article title
           </Link>
         </Heading>
