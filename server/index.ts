@@ -6,9 +6,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get("/api", (req: Request, res: Response) => {
-  console.log(req.originalUrl);
-  res.send("hello");
+app.post("/login", (req: Request, res: Response) => {
+  const { password } = req.body;
+
+  if (!password) return res.status(400).json({ success: false });
+
+  if (password === "vigBlog@8") return res.status(200).json({ success: true });
+
+  res.status(400).json({ success: false });
 });
 
 const port = 3000;

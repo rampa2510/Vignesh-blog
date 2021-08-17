@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import { useCallback, useState } from "react";
+import Login from "./Login";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const [error, setError] = useState(false);
+  const [isEditorVisible, setVisible] = useState(false);
+
+  const onSubmit = useCallback(async (password) => {
+    const data = await fetch("http://localhost:3050/api/login", {
+      method: "POST",
+      body: JSON.stringify({ password }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((res) => res.json());
+
+    if (data.success) {
+      console.log(data.success);
+
+      return setVisible(true);
+    }
+    console.log(data.success);
+    setError(true);
+  }, []);
+
+  return isEditorVisible ? null : <Login error={error} onSubmit={onSubmit} />;
 }
 
 export default App;
