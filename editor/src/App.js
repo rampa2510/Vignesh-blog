@@ -1,9 +1,10 @@
 import { useCallback, useState } from "react";
+import Editor from "./Editor";
 import Login from "./Login";
 
 function App() {
   const [error, setError] = useState(false);
-  const [isEditorVisible, setVisible] = useState(false);
+  const [isEditorVisible, setVisible] = useState(true);
 
   const onSubmit = useCallback(async (password) => {
     const data = await fetch("http://localhost:3050/api/login", {
@@ -23,7 +24,11 @@ function App() {
     setError(true);
   }, []);
 
-  return isEditorVisible ? null : <Login error={error} onSubmit={onSubmit} />;
+  return isEditorVisible ? (
+    <Editor />
+  ) : (
+    <Login onSubmit={onSubmit} error={error} />
+  );
 }
 
 export default App;
