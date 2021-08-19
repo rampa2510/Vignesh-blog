@@ -7,7 +7,7 @@ services:
       - "3050:80"
   client:
     tty: true
-    build: 
+    build:
       context: ./client
       dockerfile: dockerfile.dev
     volumes:
@@ -15,15 +15,17 @@ services:
       - ./client:/app
   api:
     tty: true
-    build: 
+    build:
       context: ./server
       dockerfile: dockerfile.dev
     volumes:
       - /app/node_modules
       - ./server:/app
+    env_file:
+      - ./server/server.env
   editor:
     tty: true
-    build: 
+    build:
       context: ./editor
       dockerfile: dockerfile.dev
     volumes:
