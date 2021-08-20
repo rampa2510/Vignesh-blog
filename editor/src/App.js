@@ -4,7 +4,7 @@ import Login from "./Login";
 
 function App() {
   const [error, setError] = useState(false);
-  const [isEditorVisible, setVisible] = useState(false);
+  const [isEditorVisible, setVisible] = useState(true);
 
   const onSubmit = useCallback(async (password) => {
     const data = await fetch("http://localhost:3050/api/login", {

@@ -9,7 +9,7 @@ services:
   api:
     image: "ram2510/vignesh-blog-server"
     env_file:
-      - ./server/server.env
+      - ./server/.env
   editor:
     image: "ram2510/vignesh-blog-editor"
     ports:

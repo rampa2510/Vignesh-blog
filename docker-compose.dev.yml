@@ -6,7 +6,6 @@ services:
     ports:
       - "3050:80"
   client:
-    tty: true
     build:
       context: ./client
       dockerfile: dockerfile.dev
@@ -14,7 +13,6 @@ services:
       - /app/node_modules
       - ./client:/app
   api:
-    tty: true
     build:
       context: ./server
       dockerfile: dockerfile.dev
@@ -22,9 +20,8 @@ services:
       - /app/node_modules
       - ./server:/app
     env_file:
-      - ./server/server.env
+      - ./server/.env
   editor:
-    tty: true
     build:
       context: ./editor
       dockerfile: dockerfile.dev

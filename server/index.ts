@@ -3,7 +3,9 @@ import cors from "cors";
 import aws from "aws-sdk";
 import multer from "multer";
 import multerS3 from "multer-s3";
+import dbConnect from "./helpers/dbconfig";
 import dotenv from "dotenv";
+import Blog from "./models/Blog";
 
 dotenv.config();
 const app = express();
@@ -29,7 +31,6 @@ const upload = multer({
         nameArr[nameArr.length - 1]
       }`;
 
-      //@ts-ignore
       req.newName = fileName;
       cb(null, fileName); //use Date.now() for unique file keys
     },
@@ -40,9 +41,7 @@ app.post(
   "/upload",
   upload.single("upl"),
   function (req: Request, res: Response) {
-    //@ts-ignore
     res.status(200).json({
-      //@ts-ignore
       url: `https://vignesh-blog.s3.ap-south-1.amazonaws.com/${req.newName}`,
     });
   }
@@ -58,8 +57,36 @@ app.post("/login", (req: Request, res: Response) => {
   res.status(400).json({ success: false });
 });
 
+app.post("/blog", async (req: Request, res: Response) => {
+  const { blog, blogPhotoUrl } = req.body;
+
+  if (!blog || !blogPhotoUrl)
+    return res.status(400).json({ message: "Invalid data" });
+
+  try {
+    await Blog.create({
+      html: blog,
+      blogPhotoUrl,
+    });
+  } catch (error) {
+    return res.status(500).json({ message: `Error = ${error.message}`, error });
+  }
+
+  res.status(200).json({ message: "Blog added!!" });
+});
+
+app.get("/blog", async (_: Request, res: Response) => {
+  try {
+    const data = await Blog.find().lean();
+    return res.status(200).json({ data });
+  } catch (error) {
+    return res.status(500).json({ message: `Error = ${error.message}`, error });
+  }
+});
+
 const port = 3000;
 
-app.listen(port, () => {
+app.listen(port, async () => {
+  await dbConnect();
   console.log(`Server started on ${port} port`);
 });
