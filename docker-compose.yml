@@ -1,16 +1,16 @@
 version: "3"
 services:
   nginx:
-    build: ./nginx
-    restart: always
+    image: "ram2510/vignesh-blog-nginx"
     ports:
       - "3050:80"
   client:
-    tty: true
-    build: ./client
-    volumes:
-      - /app/node_modules
-      - ./client:/app
+    image: "ram2510/vignesh-blog-client"
   api:
-    tty: true
-    build: ./server
+    image: "ram2510/vignesh-blog-server"
+    env_file:
+      - ./server/server.env
+  editor:
+    image: "ram2510/vignesh-blog-editor"
+    ports:
+      - "4000:4000"

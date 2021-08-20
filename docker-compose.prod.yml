@@ -8,3 +8,7 @@ services:
     image: "ram2510/vignesh-blog-client"
   api:
     image: "ram2510/vignesh-blog-server"
+  editor:
+    image: "ram2510/vignesh-blog-editor"
+    env_file:
+      - ./server/server.env

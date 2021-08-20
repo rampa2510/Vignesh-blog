@@ -329,7 +329,6 @@ export default function Login({ error, onSubmit }) {
           </div>
         </div>
       </div>
-       ̑
     </>
   );
 }
