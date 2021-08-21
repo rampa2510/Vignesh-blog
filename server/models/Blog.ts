@@ -8,6 +8,8 @@ const BlogSchema = new mongoose.Schema({
   updatedAt: Date,
   isDeleted: { type: Boolean, default: false },
   blogPhotoUrl: String,
+  description: String,
+  title: String,
 });
 
 export default mongoose.model<IBlog>("blog", BlogSchema);

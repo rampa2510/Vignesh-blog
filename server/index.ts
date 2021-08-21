@@ -58,15 +58,17 @@ app.post("/login", (req: Request, res: Response) => {
 });
 
 app.post("/blog", async (req: Request, res: Response) => {
-  const { blog, blogPhotoUrl } = req.body;
+  const { blog, blogPhotoUrl, description, title } = req.body;
 
-  if (!blog || !blogPhotoUrl)
+  if (!blog || !blogPhotoUrl || !description || !title)
     return res.status(400).json({ message: "Invalid data" });
 
   try {
     await Blog.create({
       html: blog,
       blogPhotoUrl,
+      description,
+      title,
     });
   } catch (error) {
     return res.status(500).json({ message: `Error = ${error.message}`, error });
@@ -75,9 +77,20 @@ app.post("/blog", async (req: Request, res: Response) => {
   res.status(200).json({ message: "Blog added!!" });
 });
 
+app.get("/blog/:id", async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const data = await Blog.findById(id).lean();
+
+    return res.status(200).json({ data });
+  } catch (error) {
+    return res.status(500).json({ message: `Error = ${error.message}`, error });
+  }
+});
+
 app.get("/blog", async (_: Request, res: Response) => {
   try {
-    const data = await Blog.find().lean();
+    const data = await Blog.find({}, "blogPhotoUrl description title").lean();
     return res.status(200).json({ data });
   } catch (error) {
     return res.status(500).json({ message: `Error = ${error.message}`, error });

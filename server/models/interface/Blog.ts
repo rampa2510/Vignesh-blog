@@ -7,4 +7,6 @@ export default interface IBlog extends Document {
   updatedAt: Date;
   isDeleted: boolean;
   blogPhotoUrl: string;
+  description: string;
+  title: string;
 }

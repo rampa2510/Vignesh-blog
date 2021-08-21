@@ -1,13 +1,18 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import SunEditor from "suneditor-react";
 import "suneditor/dist/css/suneditor.min.css";
 
 export default function EditorContainer() {
-  const [value, setValue] = useState(localStorage.getItem("data") || "");
+  const [value, setValue] = useState(
+    JSON.parse(localStorage.getItem("data")) || ""
+  );
   const [file, setFile] = useState(null);
   const [headerFile, setHeaderFile] = useState(null);
-  const [headerUrl, setHeaderUrl] = useState("null");
+  const [headerUrl, setHeaderUrl] = useState("");
   const [url, setUrl] = useState("");
+  const [title, setTitle] = useState("");
+  const [desc, setDesc] = useState("");
+  const [error, setError] = useState("");
 
   const onChange = useCallback((value) => {
     setValue(value);
@@ -17,10 +22,18 @@ export default function EditorContainer() {
 
   const onSubmit = useCallback(async () => {
     localStorage.removeItem("data");
+
+    if (!headerUrl || !value || !title || !desc) {
+      return setError("All fields need to be filled");
+    }
+
     const body = JSON.stringify({
       blogPhotoUrl: headerUrl,
       blog: value,
+      title,
+      description: desc,
     });
+
     await fetch("http://localhost:3050/api/blog", {
       method: "POST",
       body,
@@ -29,7 +42,14 @@ export default function EditorContainer() {
       },
     });
     setValue("");
-  }, [headerUrl, value]);
+    setHeaderUrl("");
+    setUrl("");
+    setTitle("");
+    setDesc("");
+    setHeaderFile("");
+    setFile("");
+    setError("");
+  }, [headerUrl, value, title, desc]);
 
   const buttonList = useMemo(() => {
     return [
@@ -40,7 +60,7 @@ export default function EditorContainer() {
       "/",
       ["align", "horizontalRule", "list", "table"],
       ["link", "image"],
-      ["fullScreen"],
+      ["fullScreen", "showBlocks"],
       ["preview", "print"],
       ["save", "template"],
     ];
@@ -77,8 +97,29 @@ export default function EditorContainer() {
     [file, headerFile]
   );
 
+  useEffect(() => {
+    console.log(value);
+    console.log();
+  }, [value]);
+
   return (
     <>
+      <div>{error}</div>
+      <input
+        type="input"
+        placeholder="Title"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+      />
+      <br />
+      <textarea
+        placeholder="Description"
+        value={desc}
+        onChange={(e) => setDesc(e.target.value)}
+        rows="10"
+        cols="50"
+      ></textarea>
+
       <SunEditor
         setContents={value}
         onChange={onChange}
