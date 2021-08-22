@@ -9,7 +9,6 @@ export default function BlogView({ data }) {
   const [color, setColor] = useState(colorMode);
 
   useEffect(() => {
-    console.log(colorMode);
     setColor(colorMode);
   }, [colorMode]);
 
