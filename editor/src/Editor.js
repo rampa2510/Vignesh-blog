@@ -34,7 +34,7 @@ export default function EditorContainer() {
       description: desc,
     });
 
-    await fetch("http://localhost:3050/api/blog", {
+    await fetch("http://13.233.142.11:3050/api/blog", {
       method: "POST",
       body,
       headers: {
@@ -84,7 +84,7 @@ export default function EditorContainer() {
         fileToBeUpload = file;
       }
       formData.append("upl", fileToBeUpload);
-      const resp = await fetch("http://localhost:3050/api/upload", {
+      const resp = await fetch("http://13.233.142.11:3050/api/upload", {
         method: "POST",
         body: formData,
       }).then((res) => res.json());

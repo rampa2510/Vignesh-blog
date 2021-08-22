@@ -7,7 +7,7 @@ function App() {
   const [isEditorVisible, setVisible] = useState(false);
 
   const onSubmit = useCallback(async (password) => {
-    const data = await fetch("http://localhost:3050/api/login", {
+    const data = await fetch("http://13.233.142.11:3050/api/login", {
       method: "POST",
       body: JSON.stringify({ password }),
       headers: {
