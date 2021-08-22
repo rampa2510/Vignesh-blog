@@ -11,5 +11,7 @@ var BlogSchema = new mongoose_1.default.Schema({
     updatedAt: Date,
     isDeleted: { type: Boolean, default: false },
     blogPhotoUrl: String,
+    description: String,
+    title: String,
 });
 exports.default = mongoose_1.default.model("blog", BlogSchema);

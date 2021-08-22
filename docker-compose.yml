@@ -13,4 +13,4 @@ services:
   editor:
     image: "ram2510/vignesh-blog-editor"
     ports:
-      - "4000:4000"
+      - "4000:3000"
