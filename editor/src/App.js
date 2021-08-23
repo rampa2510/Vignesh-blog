@@ -20,7 +20,6 @@ function App() {
 
       return setVisible(true);
     }
-    console.log(data.success);
     setError(true);
   }, []);
 

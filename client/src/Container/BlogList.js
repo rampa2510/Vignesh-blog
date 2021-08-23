@@ -3,11 +3,13 @@ import { useEffect, useState } from "react";
 
 import BlogList from "../Components/Blog";
 import BlogHero from "../Components/Hero";
+import Loader from "../Views/Loading";
 
 const text = `Do you want to educate yourself on financial topics? Do you want to take well informed financial decisions? You have come to the right place.
 `;
 export default function BlogContainer() {
   const [blogData, setBlogData] = useState([]);
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
     (async () => {
@@ -16,10 +18,13 @@ export default function BlogContainer() {
       );
 
       setBlogData(resp.data);
+      setLoading(false);
     })();
   }, []);
 
-  return (
+  return isLoading ? (
+    <Loader />
+  ) : (
     <Container maxW="5xl" p="12">
       <BlogHero title="Blogs" text={text} />
       <VStack

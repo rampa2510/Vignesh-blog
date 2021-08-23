@@ -1,9 +1,11 @@
 import BlogView from "../Views/Blog";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import Loader from "../Views/Loading";
 
 export default function BlogContainer() {
   const [data, setData] = useState({});
+  const [isLoading, setLoading] = useState(true);
   const { id } = useParams();
 
   useEffect(() => {
@@ -12,7 +14,8 @@ export default function BlogContainer() {
         (res) => res.json()
       );
       setData(resp.data);
+      setLoading(false);
     })();
   }, [id]);
-  return <BlogView data={data} />;
+  return isLoading ? <Loader /> : <BlogView data={data} />;
 }

@@ -7,6 +7,7 @@ import AboutView from "./Views/About";
 import BlogListConatiner from "./Container/BlogList";
 import ContactContainer from "./Container/Contact";
 import BlogContainer from "./Container/Blog";
+import AdminContainer from "./Container/Admin";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route exact path="/about" component={AboutView} />
           <Route exact path="/contact" component={ContactContainer} />
           <Route exact path="/blog/:id" component={BlogContainer} />
+          <Route exact path="/admin" component={AdminContainer} />
         </Switch>
         <Footer />
       </BrowserRouter>
