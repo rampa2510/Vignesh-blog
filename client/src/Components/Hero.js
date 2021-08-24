@@ -12,9 +12,11 @@ export default function Hero({ title, text }) {
         textAlign="center"
       >
         <HeaderWUnderline header={title} />
-        <Text mt="4" fontSize="lg">
-          {text}
-        </Text>
+        {text ? (
+          <Text mt="4" fontSize="lg">
+            {text}
+          </Text>
+        ) : null}
       </Box>
     </Box>
   );

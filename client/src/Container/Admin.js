@@ -1,9 +1,10 @@
 import { useCallback, useState } from "react";
 import LoginContainer from "./Login";
+import EditorContainer from "./Editor";
 
-export default function EditorContainer() {
+export default function AdminContainer() {
   const [error, setError] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [isLoading, setLoading] = useState(false);
 
   const onSubmit = useCallback(async (password) => {
@@ -18,14 +19,14 @@ export default function EditorContainer() {
     setLoading(false);
 
     if (data.success) {
-      console.log(data.success);
-
       return setIsLoggedIn(true);
     }
     setError(true);
   }, []);
 
-  return isLoggedIn ? null : (
+  return isLoggedIn ? (
+    <EditorContainer />
+  ) : (
     <LoginContainer isLoading={isLoading} error={error} onSubmit={onSubmit} />
   );
 }

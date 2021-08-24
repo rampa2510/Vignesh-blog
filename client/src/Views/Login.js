@@ -26,7 +26,7 @@ export default function LoginView({
     <Container centerContent height={"85vh"}>
       <Box
         mt={"40px"}
-        maxW={"320px"}
+        maxW={"420px"}
         w={"full"}
         bg={useColorModeValue("white", "gray.900")}
         boxShadow={"2xl"}

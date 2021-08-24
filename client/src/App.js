@@ -1,4 +1,5 @@
-import { ChakraProvider } from "@chakra-ui/react";
+import { lazy, Suspense } from "react";
+import { ChakraProvider, Skeleton } from "@chakra-ui/react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import Footer from "./Components/Footer";
@@ -7,7 +8,8 @@ import AboutView from "./Views/About";
 import BlogListConatiner from "./Container/BlogList";
 import ContactContainer from "./Container/Contact";
 import BlogContainer from "./Container/Blog";
-import AdminContainer from "./Container/Admin";
+
+const AdminContainer = lazy(() => import("./Container/Admin"));
 
 function App() {
   return (
@@ -19,7 +21,9 @@ function App() {
           <Route exact path="/about" component={AboutView} />
           <Route exact path="/contact" component={ContactContainer} />
           <Route exact path="/blog/:id" component={BlogContainer} />
-          <Route exact path="/admin" component={AdminContainer} />
+          <Suspense fallback={<Skeleton />}>
+            <Route exact path="/admin" component={AdminContainer} />
+          </Suspense>
         </Switch>
         <Footer />
       </BrowserRouter>

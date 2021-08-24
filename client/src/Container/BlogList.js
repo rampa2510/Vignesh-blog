@@ -1,9 +1,8 @@
-import { Container, VStack, StackDivider } from "@chakra-ui/react";
+import { Container, VStack, StackDivider, Skeleton } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
 import BlogList from "../Components/Blog";
 import BlogHero from "../Components/Hero";
-import Loader from "../Views/Loading";
 
 const text = `Do you want to educate yourself on financial topics? Do you want to take well informed financial decisions? You have come to the right place.
 `;
@@ -22,9 +21,7 @@ export default function BlogContainer() {
     })();
   }, []);
 
-  return isLoading ? (
-    <Loader />
-  ) : (
+  return (
     <Container maxW="5xl" p="12">
       <BlogHero title="Blogs" text={text} />
       <VStack
@@ -32,9 +29,11 @@ export default function BlogContainer() {
         spacing={4}
         align="center"
       >
-        {blogData
-          ? blogData.map((d) => <BlogList data={d} key={d._id} />)
-          : null}
+        <Skeleton isLoaded={!isLoading}>
+          {blogData
+            ? blogData.map((d) => <BlogList data={d} key={d._id} />)
+            : null}
+        </Skeleton>
       </VStack>
     </Container>
   );

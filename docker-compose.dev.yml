@@ -21,10 +21,3 @@ services:
       - ./server:/app
     env_file:
       - ./server/.env
-  editor:
-    build:
-      context: ./editor
-      dockerfile: dockerfile.dev
-    volumes:
-      - /app/node_modules
-      - ./editor:/app

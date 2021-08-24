@@ -1,7 +1,7 @@
 import BlogView from "../Views/Blog";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import Loader from "../Views/Loading";
+import { Skeleton } from "@chakra-ui/react";
 
 export default function BlogContainer() {
   const [data, setData] = useState({});
@@ -17,5 +17,11 @@ export default function BlogContainer() {
       setLoading(false);
     })();
   }, [id]);
-  return isLoading ? <Loader /> : <BlogView data={data} />;
+  return (
+    <>
+      <Skeleton isLoaded={!isLoading}>
+        <BlogView data={data} />
+      </Skeleton>
+    </>
+  );
 }
