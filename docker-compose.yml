@@ -10,7 +10,3 @@ services:
     image: "ram2510/vignesh-blog-server"
     env_file:
       - ./server/.env
-  editor:
-    image: "ram2510/vignesh-blog-editor"
-    ports:
-      - "4000:3000"

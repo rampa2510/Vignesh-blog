@@ -2,7 +2,7 @@ import { Box, Button, useColorModeValue } from "@chakra-ui/react";
 import { useCallback, useRef, useState } from "react";
 import ViewImage from "../Components/ViewImage";
 
-export default function BlogImageDetails() {
+export default function BlogImageDetails({ fileUpload, setHeader }) {
   const headerInputRef = useRef(null);
   const inputRef = useRef(null);
   const [headerFile, setHeaderFile] = useState(null);
@@ -12,9 +12,8 @@ export default function BlogImageDetails() {
   const [isHeaderUploading, setHeaderUpload] = useState(false);
   const [isImageUploading, setImageUpload] = useState(false);
 
-  const onFileUpload = useCallback(
+  const onFileSubmit = useCallback(
     async (type = "") => {
-      const formData = new FormData();
       let fileToBeUpload;
       if (type.length) {
         fileToBeUpload = headerFile;
@@ -22,41 +21,38 @@ export default function BlogImageDetails() {
         fileToBeUpload = imageFile;
       }
 
-      formData.append("upl", fileToBeUpload);
+      const url = await fileUpload(fileToBeUpload);
 
-      const resp = await fetch("/api/upload", {
-        method: "POST",
-        body: formData,
-      }).then((res) => res.json());
       if (type.length) {
-        setHeaderUrl(resp.url);
+        setHeaderUrl(url);
+        setHeader(url);
       } else {
-        setImageUrls([...imageUrls, resp.url]);
+        setImageUrls([...imageUrls, url]);
         setImageFile(null);
       }
     },
-    [headerFile, imageUrls, imageFile]
+    [headerFile, imageUrls, imageFile, fileUpload]
   );
 
   const handleHeaderFileUplBtnClick = useCallback(async () => {
     setHeaderUpload(true);
     if (headerFile) {
-      await onFileUpload("Header");
+      await onFileSubmit("Header");
     } else {
       headerInputRef.current.click();
     }
     setHeaderUpload(false);
-  }, [headerFile, onFileUpload]);
+  }, [headerFile, onFileSubmit]);
 
   const handleImageUplClick = useCallback(async () => {
     setImageUpload(true);
     if (imageFile) {
-      await onFileUpload();
+      await onFileSubmit();
     } else {
       inputRef.current.click();
     }
     setImageUpload(false);
-  }, [imageFile, onFileUpload]);
+  }, [imageFile, onFileSubmit]);
 
   return (
     <>
