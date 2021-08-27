@@ -13,5 +13,6 @@ var BlogSchema = new mongoose_1.default.Schema({
     blogPhotoUrl: String,
     description: String,
     title: String,
+    likes: { type: Number, default: 0 }
 });
 exports.default = mongoose_1.default.model("blog", BlogSchema);

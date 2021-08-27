@@ -1,16 +1,25 @@
 import { Box, Button, useColorModeValue } from "@chakra-ui/react";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import ViewImage from "../Components/ViewImage";
 
-export default function BlogImageDetails({ fileUpload, setHeader }) {
+export default function BlogImageDetails({
+  eheaderUrl,
+  fileUpload,
+  setHeader,
+}) {
   const headerInputRef = useRef(null);
   const inputRef = useRef(null);
   const [headerFile, setHeaderFile] = useState(null);
   const [imageFile, setImageFile] = useState(null);
-  const [headerUrl, setHeaderUrl] = useState("");
+  const [headerUrl, setHeaderUrl] = useState(eheaderUrl);
   const [imageUrls, setImageUrls] = useState([]);
   const [isHeaderUploading, setHeaderUpload] = useState(false);
   const [isImageUploading, setImageUpload] = useState(false);
+  useEffect(() => {
+    if (eheaderUrl) {
+      setHeaderUrl(eheaderUrl);
+    }
+  }, [eheaderUrl]);
 
   const onFileSubmit = useCallback(
     async (type = "") => {
@@ -31,7 +40,7 @@ export default function BlogImageDetails({ fileUpload, setHeader }) {
         setImageFile(null);
       }
     },
-    [headerFile, imageUrls, imageFile, fileUpload]
+    [headerFile, imageUrls, setHeader, imageFile, fileUpload]
   );
 
   const handleHeaderFileUplBtnClick = useCallback(async () => {

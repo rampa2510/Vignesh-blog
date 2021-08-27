@@ -4,7 +4,7 @@ import SunEditor from "suneditor-react";
 import "suneditor/dist/css/suneditor.min.css";
 import "../App.css";
 
-export default function EditorView({ isBlog, html, onChange }) {
+export default function EditorView({ isBlog, html, onChange,handleLoad }) {
   const { colorMode } = useColorMode();
   const [color, setColor] = useState(colorMode);
 
@@ -29,6 +29,7 @@ export default function EditorView({ isBlog, html, onChange }) {
 
   return (
     <SunEditor
+    onLoad={handleLoad}
       setOptions={
         isBlog
           ? { height: "100%" }

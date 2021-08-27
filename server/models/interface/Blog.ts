@@ -9,4 +9,5 @@ export default interface IBlog extends Document {
   blogPhotoUrl: string;
   description: string;
   title: string;
+  likes: number;
 }

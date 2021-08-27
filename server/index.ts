@@ -77,6 +77,27 @@ app.post("/blog", async (req: Request, res: Response) => {
   res.status(200).json({ message: "Blog added!!" });
 });
 
+app.put("/blog/:id", async (req: Request, res: Response) => {
+  const { blog, blogPhotoUrl, description, title } = req.body;
+  const { id } = req.params;
+
+  if (!blog || !blogPhotoUrl || !description || !title)
+    return res.status(400).json({ message: "Invalid data" });
+
+  try {
+    await Blog.findByIdAndUpdate(id, {
+      html: blog,
+      blogPhotoUrl,
+      description,
+      title,
+    });
+  } catch (error) {
+    return res.status(500).json({ message: `Error = ${error.message}`, error });
+  }
+
+  res.status(200).json({ message: "Blog added!!" });
+});
+
 app.get("/blog/:id", async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -92,6 +113,16 @@ app.get("/blog", async (_: Request, res: Response) => {
   try {
     const data = await Blog.find({}, "blogPhotoUrl description title").lean();
     return res.status(200).json({ data });
+  } catch (error) {
+    return res.status(500).json({ message: `Error = ${error.message}`, error });
+  }
+});
+
+app.post("/blog/:id", async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    await Blog.findByIdAndUpdate(id, { $inc: { likes: 1 } });
+    return res.status(200).json({ success: true });
   } catch (error) {
     return res.status(500).json({ message: `Error = ${error.message}`, error });
   }

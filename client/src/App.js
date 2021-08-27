@@ -10,6 +10,7 @@ import ContactContainer from "./Container/Contact";
 import BlogContainer from "./Container/Blog";
 
 const AdminContainer = lazy(() => import("./Container/Admin"));
+const EditBlogContainer = lazy(() => import("./Container/EditBlog"));
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route exact path="/blog/:id" component={BlogContainer} />
           <Suspense fallback={<Skeleton />}>
             <Route exact path="/admin" component={AdminContainer} />
+            <Route exact path="/admin/blog/:id" component={EditBlogContainer} />
           </Suspense>
         </Switch>
         <Footer />

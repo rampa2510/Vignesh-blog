@@ -5,20 +5,27 @@ import {
   Text,
   Container,
   SimpleGrid,
+  Skeleton
 } from "@chakra-ui/react";
+import { useState } from "react";
 import HeaderWUnderline from "../Components/HeaderWUnderline";
 
 const thingsArray = ["Finance", "Taxation", "Investment", "Insurance"];
 export default function AboutContainer() {
+  const [isImgLoaded,setImgLoaded] = useState(false)
+
   return (
     <VStack minH={"85vh"} p={"20px"}>
       <Box width={{ base: "90%", sm: "30%" }}>
+        <Skeleton isLoaded={isImgLoaded}>
         <Image
           borderRadius="full"
           src={
             "https://github.com/rampa2510/Vignesh-blog/blob/master/client/src/Assets/172304070_1363943550671171_5457290388790020108_n.jpg?raw=true"
           }
+          onLoad={()=>setImgLoaded(true)}
         />
+        </Skeleton>
       </Box>
       <HeaderWUnderline header="About Me" />
       <Container>

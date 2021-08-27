@@ -111,8 +111,38 @@ app.post("/blog", function (req, res) { return __awaiter(void 0, void 0, void 0,
         }
     });
 }); });
+app.put("/blog/:id", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var _a, blog, blogPhotoUrl, description, title, id, error_2;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0:
+                _a = req.body, blog = _a.blog, blogPhotoUrl = _a.blogPhotoUrl, description = _a.description, title = _a.title;
+                id = req.params.id;
+                if (!blog || !blogPhotoUrl || !description || !title)
+                    return [2 /*return*/, res.status(400).json({ message: "Invalid data" })];
+                _b.label = 1;
+            case 1:
+                _b.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, Blog_1.default.findByIdAndUpdate(id, {
+                        html: blog,
+                        blogPhotoUrl: blogPhotoUrl,
+                        description: description,
+                        title: title,
+                    })];
+            case 2:
+                _b.sent();
+                return [3 /*break*/, 4];
+            case 3:
+                error_2 = _b.sent();
+                return [2 /*return*/, res.status(500).json({ message: "Error = " + error_2.message, error: error_2 })];
+            case 4:
+                res.status(200).json({ message: "Blog added!!" });
+                return [2 /*return*/];
+        }
+    });
+}); });
 app.get("/blog/:id", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var id, data, error_2;
+    var id, data, error_3;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -123,14 +153,14 @@ app.get("/blog/:id", function (req, res) { return __awaiter(void 0, void 0, void
                 data = _a.sent();
                 return [2 /*return*/, res.status(200).json({ data: data })];
             case 2:
-                error_2 = _a.sent();
-                return [2 /*return*/, res.status(500).json({ message: "Error = " + error_2.message, error: error_2 })];
+                error_3 = _a.sent();
+                return [2 /*return*/, res.status(500).json({ message: "Error = " + error_3.message, error: error_3 })];
             case 3: return [2 /*return*/];
         }
     });
 }); });
 app.get("/blog", function (_, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var data, error_3;
+    var data, error_4;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -140,8 +170,26 @@ app.get("/blog", function (_, res) { return __awaiter(void 0, void 0, void 0, fu
                 data = _a.sent();
                 return [2 /*return*/, res.status(200).json({ data: data })];
             case 2:
-                error_3 = _a.sent();
-                return [2 /*return*/, res.status(500).json({ message: "Error = " + error_3.message, error: error_3 })];
+                error_4 = _a.sent();
+                return [2 /*return*/, res.status(500).json({ message: "Error = " + error_4.message, error: error_4 })];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); });
+app.post("/blog/:id", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var id, error_5;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                id = req.params.id;
+                return [4 /*yield*/, Blog_1.default.findByIdAndUpdate(id, { $inc: { likes: 1 } })];
+            case 1:
+                _a.sent();
+                return [2 /*return*/, res.status(200).json({ success: true })];
+            case 2:
+                error_5 = _a.sent();
+                return [2 /*return*/, res.status(500).json({ message: "Error = " + error_5.message, error: error_5 })];
             case 3: return [2 /*return*/];
         }
     });

@@ -10,6 +10,7 @@ const BlogSchema = new mongoose.Schema({
   blogPhotoUrl: String,
   description: String,
   title: String,
+  likes:{type:Number,default:0}
 });
 
 export default mongoose.model<IBlog>("blog", BlogSchema);
