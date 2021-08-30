@@ -6,6 +6,7 @@ import multerS3 from "multer-s3";
 import dbConnect from "./helpers/dbconfig";
 import dotenv from "dotenv";
 import Blog from "./models/Blog";
+import Contact from "./models/Contact";
 
 dotenv.config();
 const app = express();
@@ -127,6 +128,17 @@ app.post("/blog/:id", async (req: Request, res: Response) => {
   } catch (error) {
     return res.status(500).json({ message: `Error = ${error.message}`, error });
   }
+});
+
+app.post("/contact", async (req: Request, res: Response) => {
+  const { fName, lName, email, query } = req.body;
+  await Contact.create({ fName, lName, email, query });
+  res.status(200).json({ msg: "Query added" });
+});
+
+app.get("/contact", async (req: Request, res: Response) => {
+  const queryData = await Contact.find({}).lean();
+  res.status(200).json({ data: queryData });
 });
 
 const port = 3000;

@@ -47,6 +47,7 @@ var multer_s3_1 = __importDefault(require("multer-s3"));
 var dbconfig_1 = __importDefault(require("./helpers/dbconfig"));
 var dotenv_1 = __importDefault(require("dotenv"));
 var Blog_1 = __importDefault(require("./models/Blog"));
+var Contact_1 = __importDefault(require("./models/Contact"));
 dotenv_1.default.config();
 var app = express_1.default();
 app.use(cors_1.default());
@@ -192,6 +193,32 @@ app.post("/blog/:id", function (req, res) { return __awaiter(void 0, void 0, voi
                 error_5 = _a.sent();
                 return [2 /*return*/, res.status(500).json({ message: "Error = " + error_5.message, error: error_5 })];
             case 3: return [2 /*return*/];
+        }
+    });
+}); });
+app.post("/contact", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var _a, fName, lName, email, query;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0:
+                _a = req.body, fName = _a.fName, lName = _a.lName, email = _a.email, query = _a.query;
+                return [4 /*yield*/, Contact_1.default.create({ fName: fName, lName: lName, email: email, query: query })];
+            case 1:
+                _b.sent();
+                res.status(200).json({ msg: "Query added" });
+                return [2 /*return*/];
+        }
+    });
+}); });
+app.get("/contact", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var queryData;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, Contact_1.default.find({}).lean()];
+            case 1:
+                queryData = _a.sent();
+                res.status(200).json({ data: queryData });
+                return [2 /*return*/];
         }
     });
 }); });
