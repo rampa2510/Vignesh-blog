@@ -55,7 +55,7 @@ export default function WithSubnavigation() {
             textAlign={useBreakpointValue({ base: "center", md: "left" })}
             fontFamily={"heading"}
           >
-            Logo
+            Indian FinMind
           </Text>
 
           <Flex display={{ base: "none", md: "flex" }} ml={10}>

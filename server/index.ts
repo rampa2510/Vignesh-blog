@@ -71,7 +71,8 @@ app.post("/blog", async (req: Request, res: Response) => {
       title,
     });
   } catch (error) {
-    return res.status(500).json({ message: `Error = ${error.message}`, error });
+    res.status(500).json({ message: `Error = ${error.message}`, error });
+    return;
   }
 
   res.status(200).json({ message: "Blog added!!" });
