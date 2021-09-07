@@ -2,6 +2,7 @@ import BlogView from "../Views/Blog";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Skeleton } from "@chakra-ui/react";
+import { Helmet } from "react-helmet";
 
 export default function BlogContainer() {
   const [data, setData] = useState({});
@@ -19,6 +20,15 @@ export default function BlogContainer() {
   }, [id]);
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>{data.title}</title>
+        <meta name="description" content={data.description} />
+        <meta
+          name="keywords"
+          content="Vignesh,Nayak,FinMind,Indian,Finance,Investing"
+        />
+      </Helmet>
       <Skeleton isLoaded={!isLoading}>
         <BlogView data={data} />
       </Skeleton>

@@ -71,7 +71,7 @@ app.post("/blog", async (req: Request, res: Response) => {
       description,
       title,
     });
-  } catch (error) {
+  } catch (error: any) {
     res.status(500).json({ message: `Error = ${error.message}`, error });
     return;
   }
@@ -93,7 +93,7 @@ app.put("/blog/:id", async (req: Request, res: Response) => {
       description,
       title,
     });
-  } catch (error) {
+  } catch (error: any) {
     return res.status(500).json({ message: `Error = ${error.message}`, error });
   }
 
@@ -106,7 +106,7 @@ app.get("/blog/:id", async (req: Request, res: Response) => {
     const data = await Blog.findById(id).lean();
 
     return res.status(200).json({ data });
-  } catch (error) {
+  } catch (error: any) {
     return res.status(500).json({ message: `Error = ${error.message}`, error });
   }
 });
@@ -115,7 +115,7 @@ app.get("/blog", async (_: Request, res: Response) => {
   try {
     const data = await Blog.find({}, "blogPhotoUrl description title").lean();
     return res.status(200).json({ data });
-  } catch (error) {
+  } catch (error: any) {
     return res.status(500).json({ message: `Error = ${error.message}`, error });
   }
 });
@@ -125,7 +125,7 @@ app.post("/blog/:id", async (req: Request, res: Response) => {
     const { id } = req.params;
     await Blog.findByIdAndUpdate(id, { $inc: { likes: 1 } });
     return res.status(200).json({ success: true });
-  } catch (error) {
+  } catch (error: any) {
     return res.status(500).json({ message: `Error = ${error.message}`, error });
   }
 });

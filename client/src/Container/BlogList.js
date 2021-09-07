@@ -22,19 +22,21 @@ export default function BlogContainer() {
   }, []);
 
   return (
-    <Container maxW="5xl" p="12">
-      <BlogHero title="Blogs" text={text} />
-      <VStack
-        divider={<StackDivider borderColor="gray.200" />}
-        spacing={4}
-        align="center"
-      >
-        <Skeleton isLoaded={!isLoading}>
-          {blogData
-            ? blogData.map((d) => <BlogList data={d} key={d._id} />)
-            : null}
-        </Skeleton>
-      </VStack>
-    </Container>
+    <>
+      <Container maxW="5xl" p="12">
+        <BlogHero title="Blogs" text={text} />
+        <VStack
+          divider={<StackDivider borderColor="gray.200" />}
+          spacing={4}
+          align="center"
+        >
+          <Skeleton isLoaded={!isLoading}>
+            {blogData
+              ? blogData.map((d) => <BlogList data={d} key={d._id} />)
+              : null}
+          </Skeleton>
+        </VStack>
+      </Container>
+    </>
   );
 }
